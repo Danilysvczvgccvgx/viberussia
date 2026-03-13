@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIBE RUSSIA | GTA 5 RP</title>
+    <style>
+        :root {
+            --primary-purple: #bc13fe;
+            --dark-bg: #050505;
+            --glass: rgba(0, 0, 0, 0.9);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial Black', Gadget, sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            position: relative;
+            background-color: #000;
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), 
+                              url('https://wallpapers.com/images/featured/gta-5-city-background-98w6p6u887sh27nd.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 5%;
+            width: 500px;
+            height: 85%;
+            background-image: url('https://pngimg.com/d/gta_PNG19.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom right;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .main-title {
+            position: relative;
+            z-index: 2;
+            font-size: clamp(60px, 15vw, 110px);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            transform: skewX(-10deg);
+            line-height: 0.9;
+            background: linear-gradient(180deg, #fff 40%, var(--primary-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(10px 10px 0px rgba(0,0,0,0.8));
+            animation: titlePulse 3s infinite ease-in-out;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { filter: drop-shadow(10px 10px 0px rgba(0,0,0,0.8)) brightness(1); }
+            50% { filter: drop-shadow(0px 0px 20px rgba(188, 19, 254, 0.6)) brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            position: relative;
+            z-index: 2;
+            font-size: 22px;
+            text-transform: uppercase;
+            background: var(--primary-purple);
+            padding: 8px 30px;
+            margin-top: 15px;
+            transform: skewX(-15deg);
+            box-shadow: 6px 6px 0px #fff;
+            letter-spacing: 2px;
+        }
+
+        .menu-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 35px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            z-index: 1000;
+            transform: skewX(-15deg);
+            border-right: 6px solid var(--primary-purple);
+            transition: 0.3s;
+        }
+
+        .menu-btn:hover { background: var(--primary-purple); color: #fff; }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 350px;
+            height: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 60px 20px;
+            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            border-left: 5px solid var(--primary-purple);
+        }
+
+        .sidebar.active { right: 0; }
+
+        .sidebar-link {
+            color: white;
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 900;
+            text-transform: uppercase;
+            padding: 15px 20px;
+            margin: 5px 0;
+            transform: skewX(-10deg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar-link:hover { background: var(--primary-purple); padding-left: 40px; }
+
+        .content-section {
+            display: none; 
+            padding: 100px 50px;
+            animation: fadeIn 0.5s ease;
+            min-height: 100vh;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            font-size: 45px;
+            text-transform: uppercase;
+            border-left: 12px solid var(--primary-purple);
+            padding-left: 20px;
+            margin-bottom: 40px;
+            transform: skewX(-5deg);
+        }
+
+        .screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot-card {
+            background: #111;
+            height: 220px;
+            border: 4px solid #222;
+            background-size: cover;
+            background-position: center;
+            transition: 0.3s;
+        }
+        
+        .screenshot-card:hover {
+            border-color: var(--primary-purple);
+            transform: scale(1.02);
+        }
+
+        .about-text {
+            max-width: 850px;
+            font-size: 20px;
+            line-height: 1.5;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="menu-btn" onclick="toggleSidebar()">МЕНЮ</button>
+
+    <div class="sidebar" id="sidebar">
+        <h2 style="color: var(--primary-purple); font-size: 40px; margin-bottom: 30px; transform: skewX(-10deg);">VIBE</h2>
+        <a href="#" class="sidebar-link" onclick="showSection('hero')">Главная</a>
+        <a href="#" class="sidebar-link" onclick="showSection('gallery')">Галерея</a>
+        <a href="#" class="sidebar-link" onclick="showSection('about')">О проекте</a>
+        <a href="https://youtube.com" target="_blank" class="sidebar-link" style="color: #ff0000;">YouTube</a>
+        <a href="https://vk.com" target="_blank" class="sidebar-link">ВКонтакте</a>
+        
+        <a href="https://t.me/BATYA_B_3DANUE?text=здравствуйте%20я%20бы%20хотел%20пополнить%20счёт%20VIBE%20COINS%20(%20купить%20донат%20).%20возможно%20ли%20это%20сделать?" 
+           target="_blank" 
+           class="sidebar-link" 
+           style="background: rgba(0, 230, 118, 0.15); color: #00e676; border-left: 6px solid #00e676; margin-top: 15px;">
+           Купить VIBE COINS
+        </a>
+    </div>
+
+    <section id="hero" class="hero">
+        <h1 class="main-title">VIBE<br>RUSSIA</h1>
+        <div class="hero-subtitle">VIBE GAMES 2026</div>
+    </section>
+
+    <section id="gallery" class="content-section">
+        <h2 class="section-header">Скриншоты</h2>
+        <div class="screenshots">
+            <div class="screenshot-card" style="background-image: url('Screenshot1.png')"></div>
+            <div class="screenshot-card" style="background-image: url('Screenshot2.png')"></div>
+            <div class="screenshot-card" style="background-image: url('Screenshot3.png')"></div>
+        </div>
+    </section>
+
+    <section id="about" class="content-section" style="background: #0f0f0f;">
+        <h2 class="section-header">О проекте</h2>
+        <div class="about-text">
+            <p><strong style="color: #fff;">VIBE RUSSIA</strong> — это глубокое погружение в атмосферу современного криминального мира. Мы создали качественный российский сеттинг, где твоя репутация значит больше, чем деньги.</p>
+        </div>
+    </section>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+
+        function showSection(sectionId) {
+            document.getElementById('hero').style.display = (sectionId === 'hero') ? 'flex' : 'none';
+            document.getElementById('gallery').style.display = (sectionId === 'gallery') ? 'block' : 'none';
+            document.getElementById('about').style.display = (sectionId === 'about') ? 'block' : 'none';
+
+            toggleSidebar();
+            window.scrollTo(0, 0);
+        }
+
+        document.addEventListener('click', function(e) {
+            const sb = document.getElementById('sidebar');
+            const btn = document.querySelector('.menu-btn');
+            if (!sb.contains(e.target) && !btn.contains(e.target) && sb.classList.contains('active')) {
+                toggleSidebar();
+            }
+        });
+    </script>
+
+</body>
+</html>
