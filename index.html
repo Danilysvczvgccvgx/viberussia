@@ -7,8 +7,11 @@
     <style>
         :root {
             --primary-purple: #bc13fe;
+            --secondary-green: #00e676;
             --dark-bg: #050505;
             --glass: rgba(0, 0, 0, 0.9);
+            --danger: #ff4d4d;
+            --gold: #ffd700;
         }
 
         body, html {
@@ -21,237 +24,239 @@
             overflow-x: hidden;
         }
 
+        /* ГЛАВНЫЙ ЭКРАН */
         .hero {
             height: 100vh;
             position: relative;
-            background-color: #000;
             background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), 
                               url('https://wallpapers.com/images/featured/gta-5-city-background-98w6p6u887sh27nd.jpg');
             background-size: cover;
             background-position: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column; text-align: center;
         }
 
         .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 5%;
-            width: 500px;
-            height: 85%;
+            content: ''; position: absolute; bottom: 0; right: 5%; width: 500px; height: 85%;
             background-image: url('https://pngimg.com/d/gta_PNG19.png');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: bottom right;
-            pointer-events: none;
-            z-index: 1;
+            background-size: contain; background-repeat: no-repeat; background-position: bottom right;
+            pointer-events: none; z-index: 1;
         }
 
         .main-title {
-            position: relative;
-            z-index: 2;
-            font-size: clamp(60px, 15vw, 110px);
-            font-weight: 900;
-            text-transform: uppercase;
-            margin: 0;
-            transform: skewX(-10deg);
-            line-height: 0.9;
+            z-index: 2; font-size: clamp(50px, 15vw, 110px); margin: 0; transform: skewX(-10deg);
             background: linear-gradient(180deg, #fff 40%, var(--primary-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(10px 10px 0px rgba(0,0,0,0.8));
-            animation: titlePulse 3s infinite ease-in-out;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        @keyframes titlePulse {
-            0%, 100% { filter: drop-shadow(10px 10px 0px rgba(0,0,0,0.8)) brightness(1); }
-            50% { filter: drop-shadow(0px 0px 20px rgba(188, 19, 254, 0.6)) brightness(1.2); }
-        }
-
-        .hero-subtitle {
-            position: relative;
-            z-index: 2;
-            font-size: 22px;
-            text-transform: uppercase;
-            background: var(--primary-purple);
-            padding: 8px 30px;
-            margin-top: 15px;
-            transform: skewX(-15deg);
-            box-shadow: 6px 6px 0px #fff;
-            letter-spacing: 2px;
-        }
-
-        .menu-btn {
-            position: fixed;
-            top: 30px;
-            right: 30px;
-            background: #fff;
-            color: #000;
-            border: none;
-            padding: 12px 35px;
-            font-weight: 900;
-            text-transform: uppercase;
-            cursor: pointer;
-            z-index: 1000;
-            transform: skewX(-15deg);
-            border-right: 6px solid var(--primary-purple);
-            transition: 0.3s;
-        }
-
-        .menu-btn:hover { background: var(--primary-purple); color: #fff; }
+        .controls { position: fixed; top: 20px; right: 20px; display: flex; gap: 10px; z-index: 1000; }
+        .lang-btn, .menu-btn { padding: 10px 20px; font-weight: 900; cursor: pointer; transform: skewX(-15deg); border: none; text-transform: uppercase; }
+        .lang-btn { background: var(--primary-purple); color: white; border: 2px solid white; }
+        .menu-btn { background: white; color: black; border-right: 6px solid var(--primary-purple); }
 
         .sidebar {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 350px;
-            height: 100%;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 60px 20px;
-            transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            border-left: 5px solid var(--primary-purple);
+            position: fixed; top: 0; right: -100%; width: 320px; height: 100%;
+            background: var(--glass); backdrop-filter: blur(15px); padding: 60px 20px;
+            transition: 0.4s; z-index: 999; border-left: 5px solid var(--primary-purple); overflow-y: auto;
         }
-
         .sidebar.active { right: 0; }
 
         .sidebar-link {
-            color: white;
-            text-decoration: none;
-            font-size: 19px;
-            font-weight: 900;
-            text-transform: uppercase;
-            padding: 15px 20px;
-            margin: 5px 0;
-            transform: skewX(-10deg);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            display: block;
-            transition: 0.3s;
+            color: white; text-decoration: none; font-size: 18px; font-weight: 900;
+            text-transform: uppercase; padding: 15px; margin: 5px 0; display: block;
+            transform: skewX(-10deg); cursor: pointer;
         }
 
-        .sidebar-link:hover { background: var(--primary-purple); padding-left: 40px; }
+        .donate-link { color: var(--gold) !important; border-left: 5px solid var(--gold); background: rgba(255, 215, 0, 0.1); }
+        .nav-start-btn { background: var(--secondary-green); color: black !important; }
 
-        .content-section {
-            display: none; 
-            padding: 100px 50px;
-            animation: fadeIn 0.5s ease;
-            min-height: 100vh;
-        }
+        .content-section { display: none; padding: 80px 20px; min-height: 100vh; }
+        .section-header { font-size: 35px; text-transform: uppercase; border-left: 8px solid var(--primary-purple); padding-left: 15px; margin-bottom: 30px; }
+        .card { background: #111; padding: 25px; border: 2px solid #222; transform: skewX(-3deg); margin-bottom: 20px; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section-header {
-            font-size: 45px;
-            text-transform: uppercase;
-            border-left: 12px solid var(--primary-purple);
-            padding-left: 20px;
-            margin-bottom: 40px;
-            transform: skewX(-5deg);
-        }
-
-        .screenshots {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-        }
-
-        .screenshot-card {
-            background: #111;
-            height: 220px;
-            border: 4px solid #222;
-            background-size: cover;
-            background-position: center;
-            transition: 0.3s;
-        }
+        .faq-item { margin-bottom: 10px; border: 1px solid #333; }
+        .faq-question { background: #1a1a1a; padding: 15px; cursor: pointer; display: flex; justify-content: space-between; font-weight: 900; }
+        .faq-answer { display: none; padding: 15px; background: #111; border-top: 2px solid var(--primary-purple); color: #ccc; line-height: 1.5; }
         
-        .screenshot-card:hover {
-            border-color: var(--primary-purple);
-            transform: scale(1.02);
-        }
-
-        .about-text {
-            max-width: 850px;
-            font-size: 20px;
-            line-height: 1.5;
-            color: #bbb;
-        }
+        /* СЕРВЕР: ИНДИКАТОР НА НУЛЕ */
+        .online-bar { height: 12px; background: #222; border-radius: 6px; overflow: hidden; margin: 15px 0; border: 1px solid #333; }
+        .online-progress { width: 0%; height: 100%; background: var(--secondary-green); box-shadow: 0 0 10px var(--secondary-green); }
+        
+        .news-grid, .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .news-card { background: #111; border-bottom: 4px solid var(--primary-purple); }
+        .news-img, .gallery-img { height: 180px; background-size: cover; background-position: center; border: 1px solid #333; }
+        .social-btn { display: block; padding: 15px; text-align: center; text-decoration: none; font-weight: 900; margin-bottom: 10px; color: white; transform: skewX(-10deg); }
+        .promo-card { cursor: pointer; transition: 0.3s; padding: 25px; background: #111; border: 2px solid #222; transform: skewX(-3deg); }
+        .promo-card:hover { background: #1a1a1a; border-color: var(--gold); }
     </style>
 </head>
 <body>
 
-    <button class="menu-btn" onclick="toggleSidebar()">МЕНЮ</button>
+    <div class="controls">
+        <button class="lang-btn" onclick="toggleLang()">RU / EN</button>
+        <button class="menu-btn" id="menuBtnLabel" onclick="toggleSidebar()">МЕНЮ</button>
+    </div>
 
     <div class="sidebar" id="sidebar">
-        <h2 style="color: var(--primary-purple); font-size: 40px; margin-bottom: 30px; transform: skewX(-10deg);">VIBE</h2>
-        <a href="#" class="sidebar-link" onclick="showSection('hero')">Главная</a>
-        <a href="#" class="sidebar-link" onclick="showSection('gallery')">Галерея</a>
-        <a href="#" class="sidebar-link" onclick="showSection('about')">О проекте</a>
-        <a href="https://youtube.com" target="_blank" class="sidebar-link" style="color: #ff0000;">YouTube</a>
-        <a href="https://vk.com" target="_blank" class="sidebar-link">ВКонтакте</a>
-        
-        <a href="https://t.me/BATYA_B_3DANUE?text=здравствуйте%20я%20бы%20хотел%20пополнить%20счёт%20VIBE%20COINS%20(%20купить%20донат%20).%20возможно%20ли%20это%20сделать?" 
-           target="_blank" 
-           class="sidebar-link" 
-           style="background: rgba(0, 230, 118, 0.15); color: #00e676; border-left: 6px solid #00e676; margin-top: 15px;">
-           Купить VIBE COINS
-        </a>
+        <h2 style="color: var(--primary-purple); font-size: 35px; margin-bottom: 20px;">VIBE</h2>
+        <div class="sidebar-link nav-start-btn" data-key="nav-start" onclick="showSection('start')">Начать играть</div>
+        <div class="sidebar-link" data-key="nav-home" onclick="showSection('hero')">Главная</div>
+        <div class="sidebar-link" data-key="nav-news" onclick="showSection('news')">Новости</div>
+        <div class="sidebar-link" data-key="nav-servers" onclick="showSection('servers')">Сервера</div>
+        <div class="sidebar-link" data-key="nav-promo" onclick="showSection('promos')">Промокоды</div>
+        <div class="sidebar-link" data-key="nav-faq" onclick="showSection('faq-section')">База знаний</div>
+        <div class="sidebar-link" data-key="nav-gallery" onclick="showSection('gallery')">Галерея</div>
+        <div class="sidebar-link" data-key="nav-social" onclick="showSection('socials')">Соцсети</div>
+        <a href="https://t.me/BATYA_B_3DANUE" target="_blank" class="sidebar-link donate-link" data-key="buy-coins" style="text-decoration:none">Купить VIBE COINS</a>
     </div>
 
     <section id="hero" class="hero">
         <h1 class="main-title">VIBE<br>RUSSIA</h1>
-        <div class="hero-subtitle">VIBE GAMES 2026</div>
+        <div style="background: var(--primary-purple); padding: 5px 20px; transform: skew(-15deg); font-weight: 900; z-index: 2;">2026</div>
     </section>
 
-    <section id="gallery" class="content-section">
-        <h2 class="section-header">Скриншоты</h2>
-        <div class="screenshots">
-            <div class="screenshot-card" style="background-image: url('Screenshot1.png')"></div>
-            <div class="screenshot-card" style="background-image: url('Screenshot2.png')"></div>
-            <div class="screenshot-card" style="background-image: url('Screenshot3.png')"></div>
+    <section id="faq-section" class="content-section">
+        <h2 class="section-header" data-key="nav-faq">База знаний</h2>
+        <div class="card">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span data-key="faq1-q">Как создать семью</span> <span>+</span></div>
+                <div class="faq-answer" data-key="faq1-a">Семью можно создать в Правительство, /gps важные места правительства, для создания семьи вам потребуется 3 млн вирт.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span data-key="faq2-q">Основные команды</span> <span>+</span></div>
+                <div class="faq-answer" data-key="faq2-a">Основные команды проекта вы сможете узнать написав /mm команды проекта.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)"><span data-key="faq3-q">Telegram бот</span> <span>+</span></div>
+                <div class="faq-answer" id="bot-answer-html">
+                    Нашего проекта есть Telegram бот, в котором много интересной информации о проекте чтобы написать боту нажмите на слово <a href="https://t.me/viberussiavibebot" target="_blank" style="color:var(--primary-purple); font-weight:bold;">"Vibe Bot"</a>.
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="about" class="content-section" style="background: #0f0f0f;">
-        <h2 class="section-header">О проекте</h2>
-        <div class="about-text">
-            <p><strong style="color: #fff;">VIBE RUSSIA</strong> — это глубокое погружение в атмосферу современного криминального мира. Мы создали качественный российский сеттинг, где твоя репутация значит больше, чем деньги.</p>
+    <section id="servers" class="content-section">
+        <h2 class="section-header" data-key="nav-servers">Сервера</h2>
+        <div class="card">
+            <h3>MOSCOW #1</h3>
+            <div class="online-bar"><div class="online-progress"></div></div>
+            <p><span data-key="status-label">Статус:</span> <span style="color: var(--danger)" data-key="status-off">Выключен</span></p>
+            <p>0 / 50</p>
+        </div>
+    </section>
+
+    <section id="promos" class="content-section">
+        <h2 class="section-header" data-key="nav-promo">Промокоды</h2>
+        <div class="promo-card" onclick="copyP('#VIBE')">
+            <p data-key="promo-click">Нажми, чтобы скопировать:</p>
+            <h2 style="color:var(--gold); margin: 10px 0;">#VIBE</h2>
+        </div>
+    </section>
+
+    <section id="news" class="content-section">
+        <h2 class="section-header" data-key="nav-news">Новости</h2>
+        <div class="news-grid">
+            <div class="news-card">
+                <div class="news-img" style="background-image: url('Screenshot1.png')"></div>
+                <div style="padding:15px"><div data-key="news1-p">Глобальное обновление!</div><div style="color:var(--primary-purple); margin-top:5px">14.03.2026</div></div>
+            </div>
+            <div class="news-card">
+                <div class="news-img" style="background-image: url('Screenshot2.png')"></div>
+                <div style="padding:15px"><div data-key="news2-p">Новые лидеры!</div><div style="color:var(--primary-purple); margin-top:5px">12.03.2026</div></div>
+            </div>
+            <div class="news-card">
+                <div class="news-img" style="background-image: url('Screenshot3.png')"></div>
+                <div style="padding:15px"><div data-key="news3-p">Бонусы x2!</div><div style="color:var(--primary-purple); margin-top:5px">10.03.2026</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="content-section">
+        <h2 class="section-header" data-key="nav-gallery">Галерея</h2>
+        <div class="gallery-grid">
+            <div class="gallery-img" style="background-image: url('Screenshot1.png')"></div>
+            <div class="gallery-img" style="background-image: url('Screenshot2.png')"></div>
+            <div class="gallery-img" style="background-image: url('Screenshot3.png')"></div>
+        </div>
+    </section>
+
+    <section id="socials" class="content-section">
+        <h2 class="section-header" data-key="nav-social">Соцсети</h2>
+        <div class="card">
+            <a href="https://vk.com/viberussia" target="_blank" class="social-btn" style="background:#0077ff">ВКОНТАКТЕ</a>
+            <a href="https://t.me/BATYA_B_3DANUE" target="_blank" class="social-btn" style="background:#24A1DE">TELEGRAM</a>
+        </div>
+    </section>
+
+    <section id="start" class="content-section">
+        <h2 class="section-header" data-key="nav-start">Начать играть</h2>
+        <div class="card">
+            <a href="vibe_russia.apk" style="display:block; background:var(--secondary-green); color:black; padding:20px; text-align:center; text-decoration:none; font-weight:900">СКАЧАТЬ APK</a>
         </div>
     </section>
 
     <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('active');
+        const translations = {
+            ru: {
+                "nav-start": "Начать играть", "nav-home": "Главная", "nav-news": "Новости",
+                "nav-servers": "Сервера", "nav-gallery": "Галерея", "buy-coins": "Купить VIBE COINS",
+                "menu-label": "МЕНЮ", "nav-faq": "База знаний", "status-off": "Выключен", 
+                "status-label": "Статус:", "nav-promo": "Промокоды", "nav-social": "Соцсети",
+                "faq1-q": "Как создать семью", "faq1-a": "Семью можно создать в Правительство, /gps важные места правительства, для создания семьи вам потребуется 3 млн вирт.",
+                "faq2-q": "Основные команды", "faq2-a": "Основные команды проекта вы сможете узнать написав /mm команды проекта.",
+                "news1-p": "Глобальное обновление!", "news2-p": "Новые лидеры!", "news3-p": "Бонусы x2!",
+                "promo-click": "Нажми, чтобы скопировать:", "copy-msg": "Промокод скопирован!"
+            },
+            en: {
+                "nav-start": "Start Playing", "nav-home": "Home", "nav-news": "News",
+                "nav-servers": "Servers", "nav-gallery": "Gallery", "buy-coins": "Buy Coins",
+                "menu-label": "MENU", "nav-faq": "FAQ", "status-off": "Offline", 
+                "status-label": "Status:", "nav-promo": "Promocodes", "nav-social": "Socials",
+                "faq1-q": "How to create a family", "faq1-a": "You can create a family at Government /gps. Costs 3m currency.",
+                "faq2-q": "Main commands", "faq2-a": "Type /mm inside the game to see all commands.",
+                "news1-p": "Global Update!", "news2-p": "New Leaders!", "news3-p": "x2 Bonuses!",
+                "promo-click": "Click to copy promo:", "copy-msg": "Promo code copied!"
+            }
+        };
+
+        const botLinks = {
+            ru: 'Нашего проекта есть Telegram бот, в котором много интересной информации о проекте чтобы написать боту нажмите на слово <a href="https://t.me/viberussiavibebot" target="_blank" style="color:var(--primary-purple); font-weight:bold;">"Vibe Bot"</a>.',
+            en: 'Our project has a Telegram bot with lots of info. To message the bot, click the word <a href="https://t.me/viberussiavibebot" target="_blank" style="color:var(--primary-purple); font-weight:bold;">"Vibe Bot"</a>.'
+        };
+
+        let currentLang = 'ru';
+        function toggleLang() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[currentLang][key]) el.innerText = translations[currentLang][key];
+            });
+            document.getElementById('menuBtnLabel').innerText = translations[currentLang]['menu-label'];
+            document.getElementById('bot-answer-html').innerHTML = botLinks[currentLang];
         }
 
-        function showSection(sectionId) {
-            document.getElementById('hero').style.display = (sectionId === 'hero') ? 'flex' : 'none';
-            document.getElementById('gallery').style.display = (sectionId === 'gallery') ? 'block' : 'none';
-            document.getElementById('about').style.display = (sectionId === 'about') ? 'block' : 'none';
-
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+        function showSection(id) {
+            document.querySelectorAll('.content-section, .hero').forEach(s => s.style.display = 'none');
+            const target = document.getElementById(id);
+            if (id === 'hero') target.style.display = 'flex';
+            else target.style.display = 'block';
             toggleSidebar();
             window.scrollTo(0, 0);
         }
 
-        document.addEventListener('click', function(e) {
-            const sb = document.getElementById('sidebar');
-            const btn = document.querySelector('.menu-btn');
-            if (!sb.contains(e.target) && !btn.contains(e.target) && sb.classList.contains('active')) {
-                toggleSidebar();
-            }
-        });
-    </script>
+        function toggleFaq(el) {
+            const answer = el.nextElementSibling;
+            const isOpen = answer.style.display === "block";
+            document.querySelectorAll('.faq-answer').forEach(a => a.style.display = 'none');
+            answer.style.display = isOpen ? "none" : "block";
+        }
 
+        function copyP(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                alert(translations[currentLang]["copy-msg"] + " " + code);
+            });
+        }
+    </script>
 </body>
-</html>
+                                                                                                                                               </html>
